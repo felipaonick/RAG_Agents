@@ -72,7 +72,7 @@ L’agente AI costruito:
 
 ---
 
-## 🛠 Quando e come scrivere un buon `system_prompt`
+## 🛠 Come scrivere un buon `system_prompt`
 
 ### 🧱 Struttura consigliata (in **Markdown**)
 
@@ -83,7 +83,7 @@ You are a [persona] tasked with [obiettivo].
 ## 🎯 Behavior
 Respond in a [tone] and focus on [obiettivo].
 
-## 📚 Knowledge Base
+## 📚 Knowledge Base (context)
 Use vector database trained on [argomenti].
 
 ## 🧰 Tools
@@ -117,41 +117,94 @@ Use vector database trained on [argomenti].
 
 * Inserisci dinamicamente data/ora/utente (se serve)
 
+### Altre tecniche 
+
+- Fare uno screenshot e spiegare a ChatGPT cosa vuoi fare
+- Usare **Prompting GPT** per un semplice template
+- Mantieni i prompts corti in modo da evitare token non necessari
+- Per task complessi, aggiungi "Chain of Thought" (CoT) alla fine:
+  - "Think step by step."
+  - Non necessario per i modelli "Thinking"
+- Usare la formattazione Markdown
+  - # Top level
+  - ## Second level
+  - ### Third Level
+- Evidenziare le informazioni importanti con gli asterischi **
+- Usare i bullet points.
+- Separare le sezioni con i trattini : ----
+- Lasciare che ChatGPT generi il prompt in Markdown
+- Enfatizzare con parsimonia le cose particolarmente importanti
+- Non tutti i concetti devono perforza essere inclusi - mantenere il system prompt il più breve possibile
+
 ---
 
-## 🛠 Come generare un `system_prompt` personalizzato con GPT
+## 🛠 Come generare un `system_prompt` personalizzato con un MyGPT
 
 ### 🔨 GPT dedicato: “AI Agent System Prompts”
 
 * Nome: **AI Agent System Prompts**
-* Istruzioni caricate in markdown
-* Include file `.md` con:
+* Description: Helps create system prompts for agents with tools.
+* Istruzioni caricate in markdown dal file **instructions_to_generate_system_prompts.md**
+* Include file `.md` di esempio di come volgiamo che sia un system promtp, nella sezione Knowledge, con:
 
   * Ruolo
   * Comportamento
   * Tool usati
   * Esempi
 
-### 📥 Prompt d’esempio fornito a GPT
+---
 
-> "I need a system prompt for a customer support agent with vector database trained on mugs"
+### 📥 Prompt d’esempio fornito a MyGPT
 
-### ✅ Output GPT (semplificato)
+> "I have an agent that is for customer support, it has a vector database with a Q&A for my Onlineshop where I sell mugs. The agent responds short and helps the enduser to find the right mugs."
+
+### ✅ Output MyGPT
 
 ```markdown
-# Role
-You are a customer support AI for an online mug shop
+# 🛍️ Customer Support Agent System Prompt
 
-## Behavior
-Short, helpful, and friendly
+## **Role & Purpose**
 
-## Knowledge Base
-You have access to a vector DB with Q&A on mugs
+You are **MugMate**, a friendly and concise customer support AI for an online shop that sells mugs.
+Your primary goal is to **help users quickly find the right mugs** based on their preferences or questions.
 
-## Tools
-- Retriever Tool: fetch info about mug types
+## **Audience**
+
+Your users are *online shoppers* who expect **short, helpful, and friendly replies**. Keep your tone light and enthusiastic, like a helpful shop assistant.
+
+## **Knowledge Base**
+
+You have access to a **vector database** of Q\&A content related to the mug shop, including:
+
+* Mug types (e.g., ceramic, glass, travel)
+* Sizes, colors, and custom print options
+* Shipping & return policies
+* Current promotions
+
+Always search this database to answer user queries accurately.
+
+## **Behavior Instructions**
+
+* Keep replies **brief and relevant** (1–3 sentences max)
+* Be **friendly and helpful**, like a good in-store assistant
+* If the user is browsing, **suggest options**
+* If unsure, ask a clarifying question (e.g., “Are you looking for a travel mug or something more decorative?”)
+
+## **Tools**
+
+Currently, you rely on your **vector database** for retrieval. No external tools are enabled unless specified.
+
+## **Example Outputs**
+
+**Q: "Do you have any large mugs?"**
+A: "Yes! We’ve got several large mugs—our 15oz ceramic and XL travel mugs are super popular."
+
+**Q: "How long is shipping?"**
+A: "Shipping usually takes 3–5 business days, depending on your location."
+
+**Q: "I want a funny mug for my brother"**
+A: "Got it! Check out our ‘Dad Joke’ series or custom print options—you can add your own message too!"
 ```
-
 ---
 
 ## 💡 Best Practices
